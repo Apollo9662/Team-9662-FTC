@@ -66,7 +66,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
-@Disabled
+//@Disabled
 public class Autonomus extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -128,40 +128,41 @@ public class Autonomus extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.rightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            robot.leftMotor.setTargetPosition(newLeftTarget);
-            robot.rightMotor.setTargetPosition(newRightTarget);
+            newTarget = robot.Motor1.getCurrentPosition() + (int)(cm * COUNTS_PER_CM);
+            robot.Motor1.setTargetPosition(newTarget);
+            robot.Motor2.setTargetPosition(newTarget);
+            robot.Motor3.setTargetPosition(newTarget);
+            robot.Motor4.setTargetPosition(newTarget);
 
             // Turn On RUN_TO_POSITION
-            robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Motor3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Motor4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.leftMotor.setPower(Math.abs(speed));
-            robot.rightMotor.setPower(Math.abs(speed));
+            robot.Motor1.setPower(Math.abs(speed));
+            robot.Motor2.setPower(Math.abs(speed));
+            robot.Motor3.setPower(Math.abs(speed));
+            robot.Motor4.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                                            robot.leftMotor.getCurrentPosition(),
-                                            robot.rightMotor.getCurrentPosition());
-                telemetry.update();
+            while (robot.Motor1.isBusy() && robot.Motor2.isBusy() && robot.Motor3.isBusy() && robot.Motor4.isBusy())
+            {
             }
 
             // Stop all motion;
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(0);
+            robot.Motor1.setPower(0);
+            robot.Motor2.setPower(0);
+            robot.Motor3.setPower(0);
+            robot.Motor4.setPower(0);
 
             // Turn off RUN_TO_POSITION
-            robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Motor4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }
