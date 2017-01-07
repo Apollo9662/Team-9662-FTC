@@ -30,7 +30,6 @@ public class Hardware
     public DcMotor Motor2 = null;
     public DcMotor Motor3 = null;
     public DcMotor Motor4 = null;
-
     public DcMotor MotorThrow = null;
 
     public Servo BarrierL = null;
@@ -38,8 +37,8 @@ public class Hardware
     public Servo Door = null;
 
     /* Local OpMode members. */
-    HardwareMap hwMap  = null;
-    private ElapsedTime period  = new ElapsedTime();
+    HardwareMap hwMap = null;
+    private ElapsedTime period = new ElapsedTime();
 
     /* Constructor */
     public Hardware() {
@@ -56,9 +55,11 @@ public class Hardware
         Motor3 = hwMap.dcMotor.get("motor 3");
         Motor4 = hwMap.dcMotor.get("motor 4");
 
+        MotorThrow = hwMap.dcMotor.get("motor throw");
+
         BarrierL = hwMap.servo.get("BarrierL");
         BarrierR = hwMap.servo.get("BarrierR");
-        Door =  hwMap.servo.get("Door");
+        Door = hwMap.servo.get("Door");
 
 
         // Set all motors to zero power
