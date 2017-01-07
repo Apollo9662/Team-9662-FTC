@@ -61,17 +61,17 @@ public class TeleopTank extends LinearOpMode {
     Hardware robot = new Hardware();
     StopWatch stopwatch = new StopWatch();
 
-    boolean motorReversed;
-    boolean barrierOpen;
-    boolean throwReady;
-    boolean throwCounting;
-    long timeReverse;
-    long timeDoor;
-    long timeBarrier;
-    long timeBumper;
-    long timeMotorSpeed;
-    int DoorPosition;
-    float Speed;
+    boolean motorReversed = false;
+    boolean barrierOpen = false;
+    boolean throwReady = false;
+    boolean throwCounting = false;
+    long timeReverse = 0;
+    long timeDoor  = 0;
+    long timeBarrier = 0;
+    long timeBumper = 0;
+    long timeMotorSpeed = 0;
+    int DoorPosition = 0;
+    float Speed = 0;
 
 
     @Override

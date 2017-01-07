@@ -148,9 +148,16 @@ public class Autonomus extends LinearOpMode {
             robot.Motor4.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
-            while (robot.Motor1.isBusy() && robot.Motor2.isBusy() && robot.Motor3.isBusy() && robot.Motor4.isBusy())
-            {
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.Motor2.isBusy() && robot.Motor4.isBusy())) {
 
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d",  newTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Motor2.getCurrentPosition(),
+                        robot.Motor4.getCurrentPosition());
+                telemetry.update();
             }
 
             // Stop all motion;
