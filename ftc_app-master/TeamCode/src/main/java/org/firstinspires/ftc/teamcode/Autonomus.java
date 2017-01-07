@@ -117,7 +117,7 @@ public class Autonomus extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 50, 5);
+        encoderDrive(DRIVE_SPEED, 50,0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -151,9 +151,7 @@ public class Autonomus extends LinearOpMode {
             robot.Motor4.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.Motor1.isBusy() && robot.Motor3.isBusy())) {
+            while (opModeIsActive() && robot.Motor1.isBusy() && robot.Motor3.isBusy()) {
 
                 // Display it for the driver.
 
