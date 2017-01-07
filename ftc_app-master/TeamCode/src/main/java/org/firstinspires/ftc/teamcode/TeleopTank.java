@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -60,14 +61,14 @@ public class TeleopTank extends LinearOpMode {
             if(gamepad1.x && System.currentTimeMillis() - timeReverse > 300) {
                 if(motorReversed) {
                     robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
-                    robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
-                    robot.Motor3.setDirection(DcMotor.Direction.FORWARD);
+                    robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
+                    robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
                     robot.Motor4.setDirection(DcMotor.Direction.REVERSE);
                 }
                 else {
                     robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
-                    robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
-                    robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
+                    robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
+                    robot.Motor3.setDirection(DcMotor.Direction.FORWARD);
                     robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
                 }
                 timeReverse = System.currentTimeMillis();

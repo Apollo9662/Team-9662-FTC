@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -90,10 +91,10 @@ public class Autonomus extends LinearOpMode {
          */
         robot.init(hardwareMap);
 
-        robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
+        robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
         robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
         robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
-        robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
+        robot.Motor4.setDirection(DcMotor.Direction.REVERSE);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
