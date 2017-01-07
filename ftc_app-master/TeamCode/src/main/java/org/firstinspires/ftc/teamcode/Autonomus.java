@@ -74,7 +74,7 @@ public class Autonomus extends LinearOpMode {
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1440;
-    static final double DRIVE_GEAR_REDUCTION = 0.25;
+    static final double DRIVE_GEAR_REDUCTION = 1;
     static final double WHEEL_DIAMETER_CM = 10.0;
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * 3.1415);
 
@@ -89,6 +89,11 @@ public class Autonomus extends LinearOpMode {
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+
+        robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
+        robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
+        robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
+        robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -106,9 +111,6 @@ public class Autonomus extends LinearOpMode {
         //robot.Motor4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
-                          robot.Motor1.getCurrentPosition(),
-                          robot.Motor3.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -153,10 +155,7 @@ public class Autonomus extends LinearOpMode {
                     (robot.Motor1.isBusy() && robot.Motor3.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d",  newTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                        robot.Motor2.getCurrentPosition(),
-                        robot.Motor4.getCurrentPosition());
+
                 telemetry.update();
             }
 
