@@ -61,15 +61,15 @@ public class TeleopTank extends LinearOpMode {
             if(gamepad1.x && System.currentTimeMillis() - timeReverse > 300) {
                 if(motorReversed) {
                     robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
-                    robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
+                    robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
                     robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
-                    robot.Motor4.setDirection(DcMotor.Direction.REVERSE);
+                    robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
                 }
                 else {
                     robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
-                    robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
+                    robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
                     robot.Motor3.setDirection(DcMotor.Direction.FORWARD);
-                    robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
+                    robot.Motor4.setDirection(DcMotor.Direction.REVERSE);
                 }
                 timeReverse = System.currentTimeMillis();
             }

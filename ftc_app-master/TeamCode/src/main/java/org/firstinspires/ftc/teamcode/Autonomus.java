@@ -91,9 +91,9 @@ public class Autonomus extends LinearOpMode {
          */
         robot.init(hardwareMap);
 
-        robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
+        robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
         robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
-        robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
+        robot.Motor3.setDirection(DcMotor.Direction.FORWARD);
         robot.Motor4.setDirection(DcMotor.Direction.REVERSE);
 
         // Send telemetry message to signify robot waiting;
@@ -117,7 +117,7 @@ public class Autonomus extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 500, 5);
+        encoderDrive(DRIVE_SPEED, 50, 5);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
