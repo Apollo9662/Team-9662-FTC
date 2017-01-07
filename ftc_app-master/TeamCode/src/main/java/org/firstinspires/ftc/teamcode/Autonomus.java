@@ -151,7 +151,7 @@ public class Autonomus extends LinearOpMode {
             robot.Motor4.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() && robot.Motor1.isBusy() && robot.Motor3.isBusy()) {
+            while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTarget && robot.Motor3.getCurrentPosition() < newTarget) {
 
                 // Display it for the driver.
 
