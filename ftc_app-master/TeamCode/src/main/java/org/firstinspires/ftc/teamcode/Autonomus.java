@@ -72,12 +72,13 @@ public class Autonomus extends LinearOpMode {
 
     /* Declare OpMode members. */
     Hardware robot = new Hardware();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1440;
     static final double DRIVE_GEAR_REDUCTION = 1;
     static final double WHEEL_DIAMETER_CM = 10.0;
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * 3.1415);
+    static final double WHEEL_DISTANCE_CM = 34;
 
     static final double     DRIVE_SPEED             = 0.5;
     static final double     TURN_SPEED              = 0.5;
@@ -117,14 +118,14 @@ public class Autonomus extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 50,0);
+        drive(DRIVE_SPEED, 50);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
 
 
-    public void encoderDrive(double speed, double cm, double timeoutS) {
+    public void drive(double speed, double cm) {
 
         int newTarget;
 
@@ -154,7 +155,9 @@ public class Autonomus extends LinearOpMode {
             while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTarget && robot.Motor3.getCurrentPosition() < newTarget) {
 
                 // Display it for the driver.
-
+                telemetry.addData("Running...", "%d");
+                telemetry.addData("Motor 1,2 Pos: ", robot.Motor1.getCurrentPosition());
+                telemetry.addData("Motor 3,4 Pos: ", robot.Motor3.getCurrentPosition());
                 telemetry.update();
             }
 
@@ -171,6 +174,45 @@ public class Autonomus extends LinearOpMode {
             //robot.Motor4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             sleep(250);   // optional pause after each move
+        }
+    }
+
+    public void turn(double speed, double deg) {
+
+        double newTargetLeft;
+        double newTargetRight;
+
+        if(opModeIsActive()) {
+            newTargetLeft = robot.Motor1.getCurrentPosition() + (WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 4;
+            newTargetRight = robot.Motor3.getCurrentPosition() - (WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 4;
+
+            robot.Motor1.setTargetPosition((int)newTargetLeft);
+            robot.Motor3.setTargetPosition((int)newTargetRight);
+
+            robot.Motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.Motor3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.Motor1.setPower(Math.abs(speed));
+            robot.Motor2.setPower(Math.abs(speed));
+            robot.Motor3.setPower(Math.abs(speed));
+            robot.Motor4.setPower(Math.abs(speed));
+
+            while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTargetLeft && robot.Motor3.getCurrentPosition() < newTargetRight) {
+                telemetry.addData("Running...", "%d");
+                telemetry.addData("Motor 1,2 Pos: ", robot.Motor1.getCurrentPosition());
+                telemetry.addData("Motor 3,4 Pos: ", robot.Motor3.getCurrentPosition());
+                telemetry.update();
+            }
+
+            robot.Motor1.setPower(0);
+            robot.Motor2.setPower(0);
+            robot.Motor3.setPower(0);
+            robot.Motor4.setPower(0);
+
+            robot.Motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(250);
         }
     }
 }
