@@ -34,10 +34,7 @@ public class Autonomus_Front extends LinearOpMode {
          */
         robot.init(hardwareMap);
 
-        robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
-        robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
-        robot.Motor3.setDirection(DcMotor.Direction.FORWARD);
-        robot.Motor4.setDirection(DcMotor.Direction.REVERSE);
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -62,11 +59,11 @@ public class Autonomus_Front extends LinearOpMode {
 
         Throw(100, 4000);
 
-        drive(DRIVE_SPEED, 50);
+        drive(DRIVE_SPEED, 30);
 
-        turn(TURN_SPEED,180);
+        turn(TURN_SPEED, 100);
 
-        drive(DRIVE_SPEED, 100);
+        drive(DRIVE_SPEED, 60);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -78,6 +75,11 @@ public class Autonomus_Front extends LinearOpMode {
         int newTarget;
 
         if (opModeIsActive()) {
+
+            robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
+            robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
+            robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
+            robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
 
             robot.Motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.Motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -130,6 +132,11 @@ public class Autonomus_Front extends LinearOpMode {
 
     public void turn(double speed, double deg) {
 
+        robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
+        robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
+        robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
+        robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
+
         double newTargetLeft;
         double newTargetRight;
 
@@ -149,7 +156,7 @@ public class Autonomus_Front extends LinearOpMode {
             robot.Motor1.setPower(Math.abs(speed));
             robot.Motor2.setPower(Math.abs(speed));
             robot.Motor3.setPower(Math.abs(speed));
-            robot.Motor4.setPower(Math.abs(speed));
+            robot.Motor4.setPower(-Math.abs(speed));
 
             while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTargetLeft && (-1 * robot.Motor3.getCurrentPosition()) > newTargetRight) {
                 telemetry.addData("Running...", "%d");

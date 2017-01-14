@@ -50,16 +50,16 @@ public class TeleopTank extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-            if (motorReversed) {
-                right = -gamepad1.left_stick_y;
-                left = -gamepad1.right_stick_y;
+            if (!motorReversed) {
+                left = -gamepad1.left_stick_y;
+                right = -gamepad1.right_stick_y;
                 robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
                 robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
                 robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
                 robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
             } else {
-                left = -gamepad1.left_stick_y;
-                right = -gamepad1.right_stick_y;
+                right = -gamepad1.left_stick_y;
+                left = -gamepad1.right_stick_y;
                 robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
                 robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
                 robot.Motor3.setDirection(DcMotor.Direction.FORWARD);
@@ -76,8 +76,8 @@ public class TeleopTank extends LinearOpMode {
                 timeReverse = System.currentTimeMillis();
             }
 
-            //Gamepad1 Button A Set Door Position
-            if (gamepad1.a && System.currentTimeMillis() - timeDoor > 300) {
+            //Gamepad1 Button Left Bumper Set Door Position
+            if (gamepad1.left_bumper && System.currentTimeMillis() - timeDoor > 300) {
                 if (DoorPosition < 2) {
                     DoorPosition++;
                 } else {
@@ -86,13 +86,13 @@ public class TeleopTank extends LinearOpMode {
                 timeDoor = System.currentTimeMillis();
             }
 
-            //Gamepad1 Button A Set Door Position. Set segment
+            //Gamepad1 Button Left Bumper Set Door Position. Set segment
             if (DoorPosition == 0) {
-                robot.Door.setPosition(0.75);
+                robot.Door.setPosition(0);
             } else if (DoorPosition == 1) {
                 robot.Door.setPosition(0.45);
             } else {
-                robot.Door.setPosition(0);
+                robot.Door.setPosition(0.75);
             }
 
             //Gamepad1 Button Y Set Barrier Position
@@ -103,11 +103,11 @@ public class TeleopTank extends LinearOpMode {
 
             //Gamepad1 Button Y Set Barrier Position. Set Segment.
             if (barrierOpen) {
-                robot.BarrierR.setPosition(0);
                 robot.BarrierL.setPosition(1);
+                robot.BarrierR.setPosition(0);
             } else {
-                robot.BarrierL.setPosition(0.6);
-                robot.BarrierR.setPosition(0.4);
+                robot.BarrierL.setPosition(0.5);
+                robot.BarrierR.setPosition(0.5);
             }
 
             //Gamepad1 Button B Open Barrier And Insert Ball
@@ -121,6 +121,7 @@ public class TeleopTank extends LinearOpMode {
                 robot.MotorThrow.setPower(powerThrow);
                 if (!throwCounting) {
                     stopwatch.start();
+                    throwCounting = true;
                 } else if (stopwatch.getElapsedTime() > 3000) {
                     throwReady = true;
                 }
@@ -157,12 +158,13 @@ public class TeleopTank extends LinearOpMode {
 
             // Send telemetry message to signify robot running;
             telemetry.addData("Throw Ready? : ", throwReady);
-            telemetry.addData("\n", "%d");
+            telemetry.addData("Throw Power: %.2f", powerThrow);
+            telemetry.addData("\n", "");
             telemetry.addData("Driving Power: ", "%.2f", Speed * 100);
             telemetry.addData("Left: ", "%.2f", left * 100);
             telemetry.addData("Right: ", "%.2f", right * 100);
             telemetry.addData("Motors Reversed? : ", motorReversed);
-            telemetry.addData("\n", "%d");
+            telemetry.addData("\n", "");
             telemetry.addData("Servo's Positions: ", "%d");
             telemetry.addData("Barrier Open? : ", barrierOpen);
             telemetry.addData("Door Position: %d", DoorPosition);
