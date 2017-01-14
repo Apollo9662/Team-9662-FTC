@@ -151,7 +151,7 @@ public class Autonomus_Front extends LinearOpMode {
             robot.Motor3.setPower(Math.abs(speed));
             robot.Motor4.setPower(Math.abs(speed));
 
-            while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTargetLeft && robot.Motor3.getCurrentPosition() < newTargetRight) {
+            while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTargetLeft && (-1 * robot.Motor3.getCurrentPosition()) > newTargetRight) {
                 telemetry.addData("Running...", "%d");
                 telemetry.addData("Motor 1,2 Pos: ", robot.Motor1.getCurrentPosition());
                 telemetry.addData("Motor 3,4 Pos: ", robot.Motor3.getCurrentPosition());
