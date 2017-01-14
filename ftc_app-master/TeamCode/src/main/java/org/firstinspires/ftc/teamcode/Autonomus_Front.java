@@ -60,7 +60,7 @@ public class Autonomus_Front extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        Throw(100, 4);
+        Throw(100, 4000);
 
         drive(DRIVE_SPEED, 50);
 
@@ -79,8 +79,11 @@ public class Autonomus_Front extends LinearOpMode {
 
         if (opModeIsActive()) {
 
+            robot.Motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.Motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
             // Determine new target position, and pass to motor controller
-            newTarget = robot.Motor1.getCurrentPosition() + (int)(cm * COUNTS_PER_CM);
+            newTarget = (int)(cm * COUNTS_PER_CM);
             robot.Motor1.setTargetPosition(newTarget);
             //robot.Motor2.setTargetPosition(newTarget);
             robot.Motor3.setTargetPosition(newTarget);
@@ -130,9 +133,12 @@ public class Autonomus_Front extends LinearOpMode {
         double newTargetLeft;
         double newTargetRight;
 
+        robot.Motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.Motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         if(opModeIsActive()) {
-            newTargetLeft = robot.Motor1.getCurrentPosition() + (WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 4;
-            newTargetRight = robot.Motor3.getCurrentPosition() - (WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 4;
+            newTargetLeft = (WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 4;
+            newTargetRight = -(WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 4;
 
             robot.Motor1.setTargetPosition((int)newTargetLeft);
             robot.Motor3.setTargetPosition((int)newTargetRight);
@@ -181,11 +187,10 @@ public class Autonomus_Front extends LinearOpMode {
 
             robot.BarrierR.setPosition(0);
             robot.BarrierL.setPosition(1);
-
             sleep(250);
-
             robot.Door.setPosition(0.75);
-
+            sleep(250);
+            robot.MotorThrow.setPower(0);
             sleep(250);
         }
     }
