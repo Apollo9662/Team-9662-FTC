@@ -61,7 +61,6 @@ public class Hardware
         BarrierR = hwMap.servo.get("BarrierR");
         Door = hwMap.servo.get("Door");
 
-
         // Set all motors to zero power
         Motor1.setPower(0);
         Motor2.setPower(0);
@@ -76,9 +75,9 @@ public class Hardware
         Motor4.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        BarrierL.setPosition(0);
-        BarrierR.setPosition(0);
-        Door.setPosition(0);
+        BarrierL.setPosition(0.6);
+        BarrierR.setPosition(0.4);
+        Door.setPosition(0.45);
     }
 
     /***
