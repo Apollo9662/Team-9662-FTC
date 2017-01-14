@@ -76,10 +76,19 @@ public class Autonomus_Front extends LinearOpMode {
 
         if (opModeIsActive()) {
 
-            robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
-            robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
-            robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
-            robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
+            if(cm > 0) {
+                robot.Motor1.setDirection(DcMotor.Direction.FORWARD);
+                robot.Motor2.setDirection(DcMotor.Direction.REVERSE);
+                robot.Motor3.setDirection(DcMotor.Direction.REVERSE);
+                robot.Motor4.setDirection(DcMotor.Direction.FORWARD);
+            }
+            else {
+                robot.Motor1.setDirection(DcMotor.Direction.REVERSE);
+                robot.Motor2.setDirection(DcMotor.Direction.FORWARD);
+                robot.Motor3.setDirection(DcMotor.Direction.FORWARD);
+                robot.Motor4.setDirection(DcMotor.Direction.REVERSE);
+            }
+            cm = Math.abs(cm);
 
             robot.Motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.Motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -105,39 +114,26 @@ public class Autonomus_Front extends LinearOpMode {
             robot.Motor4.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
-            if (cm > 0) {
-                while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTarget && robot.Motor3.getCurrentPosition() < newTarget) {
-
-                    // Display it for the driver.
-                    telemetry.addData("Running...", "%d");
-                    telemetry.addData("Motor 1,2 Pos: ", robot.Motor1.getCurrentPosition());
-                    telemetry.addData("Motor 3,4 Pos: ", robot.Motor3.getCurrentPosition());
-                    telemetry.update();
-                }
-            } else {
-                while (opModeIsActive() && robot.Motor1.getCurrentPosition() > newTarget && robot.Motor3.getCurrentPosition() > newTarget) {
-
-                    // Display it for the driver.
-                    telemetry.addData("Running...", "%d");
-                    telemetry.addData("Motor 1,2 Pos: ", robot.Motor1.getCurrentPosition());
-                    telemetry.addData("Motor 3,4 Pos: ", robot.Motor3.getCurrentPosition());
-                    telemetry.update();
-                }
-
-                // Stop all motion;
-                robot.Motor1.setPower(0);
-                robot.Motor2.setPower(0);
-                robot.Motor3.setPower(0);
-                robot.Motor4.setPower(0);
-
-                // Turn off RUN_TO_POSITION
-                robot.Motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                //robot.Motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.Motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                //robot.Motor4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-                sleep(250);   // optional pause after each move
+            while (opModeIsActive() && robot.Motor1.getCurrentPosition() < newTarget && robot.Motor3.getCurrentPosition() < newTarget) {
+                // Display it for the driver.
+                telemetry.addData("Running...", "");
+                telemetry.addData("Motor 1,2 Pos: ", robot.Motor1.getCurrentPosition());
+                telemetry.addData("Motor 3,4 Pos: ", robot.Motor3.getCurrentPosition());
+                telemetry.update();
             }
+            // Stop all motion;
+            robot.Motor1.setPower(0);
+            robot.Motor2.setPower(0);
+            robot.Motor3.setPower(0);
+            robot.Motor4.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.Motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //robot.Motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //robot.Motor4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(250);   // optional pause after each move
         }
     }
 
@@ -155,8 +151,8 @@ public class Autonomus_Front extends LinearOpMode {
         robot.Motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         if(opModeIsActive()) {
-            newTargetLeft = (WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 3;
-            newTargetRight = -(WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 3;
+            newTargetLeft = (WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 2;
+            newTargetRight = -(WHEEL_DISTANCE_CM / WHEEL_DIAMETER_CM) * deg * 2;
 
             robot.Motor1.setTargetPosition((int)newTargetLeft);
             robot.Motor3.setTargetPosition((int)newTargetRight);
