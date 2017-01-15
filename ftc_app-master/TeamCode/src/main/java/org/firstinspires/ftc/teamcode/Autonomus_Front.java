@@ -62,7 +62,7 @@ public class Autonomus_Front extends LinearOpMode {
 
         turn(TURN_SPEED, 170);
 
-        drive(0.8, -75);
+        drive(DRIVE_SPEED, -75);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
