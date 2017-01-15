@@ -75,8 +75,8 @@ public class Hardware
         Motor4.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        BarrierL.setPosition(0.6);
-        BarrierR.setPosition(0.4);
+        BarrierL.setPosition(0.4);
+        BarrierR.setPosition(0.6);
         Door.setPosition(0.45);
     }
 
