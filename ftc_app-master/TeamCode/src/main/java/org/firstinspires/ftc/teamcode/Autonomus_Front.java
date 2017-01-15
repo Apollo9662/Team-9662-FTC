@@ -57,7 +57,7 @@ public class Autonomus_Front extends LinearOpMode {
         drive(DRIVE_SPEED, 15);
 
         Throw(100, 4000);
-
+        
         drive(DRIVE_SPEED, 50);
 
         turn(TURN_SPEED, 170);
