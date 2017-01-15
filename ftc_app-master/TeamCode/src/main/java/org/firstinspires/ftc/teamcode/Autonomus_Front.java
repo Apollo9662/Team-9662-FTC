@@ -54,15 +54,15 @@ public class Autonomus_Front extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        drive(DRIVE_SPEED, 15);
+        drive(DRIVE_SPEED, 10);
 
         Throw(100, 4000);
-        
+
         drive(DRIVE_SPEED, 50);
 
         turn(TURN_SPEED, 170);
 
-        drive(DRIVE_SPEED, -60);
+        drive(0.8, -75);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

@@ -61,6 +61,11 @@ public class Hardware
         BarrierR = hwMap.servo.get("BarrierR");
         Door = hwMap.servo.get("Door");
 
+        Motor1.setDirection(DcMotor.Direction.FORWARD);
+        Motor2.setDirection(DcMotor.Direction.REVERSE);
+        Motor3.setDirection(DcMotor.Direction.REVERSE);
+        Motor4.setDirection(DcMotor.Direction.FORWARD);
+
         // Set all motors to zero power
         Motor1.setPower(0);
         Motor2.setPower(0);
